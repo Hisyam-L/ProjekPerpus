@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 using namespace std;
+
+int a;
 //tes
 struct akun 
 {
