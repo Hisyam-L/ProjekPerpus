@@ -1,4 +1,6 @@
-#include "project_alpro_2.cpp";
+
+#include "buku.cpp";
+
 
 
 void login_member(){
@@ -18,11 +20,11 @@ void login_member(){
         switch (pilihan) {
             case 1: 
             int jumlah;
-                cout << "Masukkan jumlah buku yang ingin ditambahkan: ";
-                cin >> jumlah;
-                tambahBukuRekursif(jumlah);
+            system("cls");
+                cout << "Buku yang tersedia : ";
+
             case 2:
-            cekBuku();
+
             break;
 
             case 3: cout << "Logout berhasil!" << endl; 

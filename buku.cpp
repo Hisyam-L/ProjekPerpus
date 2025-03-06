@@ -1,5 +1,6 @@
-#include "project_alpro_2.cpp";
 
+#include <iostream>
+#include <string>
 using namespace std;
 
 struct Book {
@@ -14,8 +15,7 @@ struct Book {
     int pages;
 };
 
-int main() {
-    Book books[200] = {
+    Book books[150] = {
                 {1, "To Kill a Mockingbird", "Harper Lee", "J.B. Lippincott & Co.", 1960, "A novel about racial injustice in the Deep South.", "978-0-06-112008-4", "Fiction", 281},
                 {2, "1984", "George Orwell", "Secker & Warburg", 1949, "A dystopian social science fiction novel.", "978-0-452-28423-4", "Dystopian", 328},
                 {3, "The Great Gatsby", "F. Scott Fitzgerald", "Charles Scribner's Sons", 1925, "A novel about the American dream and its pitfalls.", "978-0-7432-7356-5", "Fiction", 180},
@@ -116,22 +116,26 @@ int main() {
                 {98, "Quiet: The Power of Introverts in a World That Can't Stop Talking", "Susan Cain", "Crown Publishing Group", 2012, "A study of introversion and its value.", "978-0-307-35214-9", "Psychology", 352},
                 {99, "The Power of Habit", "Charles Duhigg", "Random House", 2012, "A study of how habits work and how they can be changed.", "978-1-4000-6928-6", "Psychology", 371},
                 {100, "Atomic Habits", "James Clear", "Avery", 2018, "A guide to building good habits and breaking bad ones.", "978-0-7352-1129-2", "Self-Help", 320},
-// Lanjutkan dengan pola yang sama hingga 200...
     };
 
-    // Loop untuk menampilkan data buku
-    for (int i = 0; i < 200; i++) {
-        cout << "ID: " << books[i].id << endl;
-        cout << "Judul: " << books[i].title << endl;
-        cout << "Penulis: " << books[i].author << endl;
-        cout << "Penerbit: " << books[i].publisher << endl;
-        cout << "Tahun Terbit: " << books[i].year << endl;
-        cout << "Sinopsis: " << books[i].synopsis << endl;
-        cout << "ISBN: " << books[i].isbn << endl;
-        cout << "Genre: " << books[i].genre << endl;
-        cout << "Jumlah Halaman: " << books[i].pages << endl;
-        cout << endl;
-    }
 
-    return 0;
+void searching() {
+    string judul;
+
+    cout << "Masukan judul buku yang ingin dicari :";
+    cin>>judul;
+    cout << endl;
+    int jumlah_array = sizeof(books)/sizeof(books[0]);
+    for (int i = 0; i < jumlah_array; i++)
+    {
+        if (judul == books[i].title)
+        {
+            cout << "Judul Buku : " << books[i].title <<" Berada di rak "<<i<< endl;
+            break;
+        }
+        
+    }
+    
+
 }
+    
