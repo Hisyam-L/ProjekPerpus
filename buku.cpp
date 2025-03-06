@@ -1,5 +1,4 @@
-#include <iostream>
-#include <string>
+#include "project_alpro_2.cpp";
 
 using namespace std;
 
