@@ -1,9 +1,10 @@
 #include <iostream>
 #include <string>
-using namespace std;
+int jumlah_max_buku = 3000;
 
 struct Buku
 {
+    
     int IDBuku;
     string judulBuku;
     string penulisBuku;
@@ -15,7 +16,6 @@ struct Buku
     int jumlahHalamanBuku;
 };
 
-const int jumlah_max_buku = 3000;
 int jumlahBuku = 3; 
 Buku daftarBuku[jumlah_max_buku] = {
     {1, "To Kill a Mockingbird", "Harper Lee", "J.B. Lippincott & Co.", 1960, "A novel about racial injustice in the Deep South.", "978-0-06-112008-4", "Fiction", 281},
@@ -122,41 +122,3 @@ Buku daftarBuku[jumlah_max_buku] = {
     {99, "The Power of Habit", "Charles Duhigg", "Random House", 2012, "A study of how habits work and how they can be changed.", "978-1-4000-6928-6", "Psychology", 371},
     {100, "Atomic Habits", "James Clear", "Avery", 2018, "A guide to building good habits and breaking bad ones.", "978-0-7352-1129-2", "Self-Help", 320},
 };
-
-// struct Book {
-//     int id;
-//     string title;
-//     string author;
-//     string publisher;
-//     int year;
-//     string synopsis;
-//     string isbn;
-//     string genre;
-//     int pages;
-// };
-
-//     Book books[150] = {
-
-//     };
-
-
-// void searching() {
-//     string judul;
-
-//     cout << "Masukan judul buku yang ingin dicari :";
-//     cin>>judul;
-//     cout << endl;
-//     int jumlah_array = sizeof(books)/sizeof(books[0]);
-//     for (int i = 0; i < jumlah_array; i++)
-//     {
-//         if (judul == books[i].title)
-//         {
-//             cout << "Judul Buku : " << books[i].title <<" Berada di rak "<<i<< endl;
-//             break;
-//         }
-        
-//     }
-    
-
-// }
-    
