@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
+const int jumlah_max_buku = 3000;
 struct Buku
 {
     int IDBuku;
@@ -15,183 +17,125 @@ struct Buku
     int jumlahHalamanBuku;
 };
 
-const int jumlah_max_buku = 3000;
+Buku* daftarBuku[jumlah_max_buku];
 int jumlahBuku = 120;
-Buku daftarBuku[jumlah_max_buku] = {
-    {1, "To Kill a Mockingbird", "Harper Lee", "J.B. Lippincott & Co.", 1960, "A novel about racial injustice in the Deep South.", "978-0-06-112008-4", "Fiction", 281},
-    {2, "1984", "George Orwell", "Secker & Warburg", 1949, "A dystopian social science fiction novel.", "978-0-452-28423-4", "Dystopian", 328},
-    {3, "The Great Gatsby", "F. Scott Fitzgerald", "Charles Scribner's Sons", 1925, "A novel about the American dream and its pitfalls.", "978-0-7432-7356-5", "Fiction", 180},
-    {1, "To Kill a Mockingbird", "Harper Lee", "J.B. Lippincott & Co.", 1960, "A novel about racial injustice in the Deep South.", "978-0-06-112008-4", "Fiction", 281},
-    {2, "1984", "George Orwell", "Secker & Warburg", 1949, "A dystopian social science fiction novel.", "978-0-452-28423-4", "Dystopian", 328},
-    {3, "The Great Gatsby", "F. Scott Fitzgerald", "Charles Scribner's Sons", 1925, "A novel about the American dream and its pitfalls.", "978-0-7432-7356-5", "Fiction", 180},
-    {4, "One Hundred Years of Solitude", "Gabriel Garcia Marquez", "Harper & Row", 1967, "A multi-generational story of the Buendía family.", "978-0-06-088328-7", "Magical Realism", 417},
-    {5, "Pride and Prejudice", "Jane Austen", "T. Egerton", 1813, "A romantic novel about manners and marriage.", "978-0-19-953556-9", "Romance", 279},
-    {6, "The Catcher in the Rye", "J.D. Salinger", "Little, Brown and Company", 1951, "A novel about teenage rebellion and angst.", "978-0-316-76948-0", "Fiction", 234},
-    {7, "Moby-Dick", "Herman Melville", "Harper & Brothers", 1851, "A novel about the voyage of the whaling ship Pequod.", "978-0-14-243724-7", "Adventure", 635},
-    {8, "War and Peace", "Leo Tolstoy", "The Russian Messenger", 1869, "A novel that chronicles the French invasion of Russia.", "978-0-19-923276-5", "Historical Fiction", 1225},
-    {9, "The Hobbit", "J.R.R. Tolkien", "George Allen & Unwin", 1937, "A fantasy novel about the journey of Bilbo Baggins.", "978-0-618-00221-3", "Fantasy", 310},
-    {10, "The Lord of the Rings", "J.R.R. Tolkien", "George Allen & Unwin", 1954, "A high-fantasy novel about the quest to destroy the One Ring.", "978-0-618-00222-0", "Fantasy", 1178},
-    {11, "Jane Eyre", "Charlotte Brontë", "Smith, Elder & Co.", 1847, "A novel about the experiences of the titular character.", "978-0-14-243720-9", "Romance", 532},
-    {12, "Crime and Punishment", "Fyodor Dostoevsky", "The Russian Messenger", 1866, "A novel about the mental anguish of a young man.", "978-0-14-310763-3", "Psychological Fiction", 671},
-    {13, "The Grapes of Wrath", "John Steinbeck", "The Viking Press", 1939, "A novel about the Great Depression and the Dust Bowl.", "978-0-14-303943-3", "Historical Fiction", 464},
-    {14, "The Divine Comedy", "Dante Alighieri", "Various", 1320, "An epic poem about the journey through Hell, Purgatory, and Paradise.", "978-0-14-243722-3", "Epic Poetry", 798},
-    {15, "The Brothers Karamazov", "Fyodor Dostoevsky", "The Russian Messenger", 1880, "A novel about the spiritual and moral struggles of four brothers.", "978-0-14-044924-2", "Philosophical Fiction", 796},
-    {16, "Brave New World", "Aldous Huxley", "Chatto & Windus", 1932, "A dystopian novel about a futuristic society.", "978-0-06-085052-4", "Dystopian", 311},
-    {17, "Wuthering Heights", "Emily Brontë", "Thomas Cautley Newby", 1847, "A novel about the intense and destructive love between Catherine Earnshaw and Heathcliff.", "978-0-14-143955-6", "Romance", 416},
-    {18, "The Odyssey", "Homer", "Various", -800, "An epic poem about the journey of Odysseus.", "978-0-14-026886-7", "Epic Poetry", 541},
-    {19, "Catch-22", "Joseph Heller", "Simon & Schuster", 1961, "A satirical novel about World War II.", "978-0-684-83339-9", "Satire", 453},
-    {20, "Ulysses", "James Joyce", "Shakespeare and Company", 1922, "A modernist novel about a single day in Dublin.", "978-0-679-72232-0", "Modernist Fiction", 730},
-    {21, "The Da Vinci Code", "Dan Brown", "Doubleday", 2003, "A mystery thriller about the Holy Grail.", "978-0-385-50420-1", "Mystery", 454},
-    {22, "The Alchemist", "Paulo Coelho", "HarperTorch", 1988, "A philosophical book about a shepherd's journey.", "978-0-06-112008-5", "Philosophy", 208},
-    {23, "The Hunger Games", "Suzanne Collins", "Scholastic", 2008, "A dystopian novel about a televised battle.", "978-0-439-02352-8", "Dystopian", 374},
-    {24, "The Road", "Cormac McCarthy", "Alfred A. Knopf", 2006, "A post-apocalyptic novel of survival.", "978-0-307-26543-2", "Post-Apocalyptic", 241},
-    {25, "Life of Pi", "Yann Martel", "Knopf Canada", 2001, "A story of survival at sea with a tiger.", "978-0-676-97376-0", "Adventure", 326},
-    {26, "The Martian", "Andy Weir", "Crown", 2011, "An astronaut's struggle to survive on Mars.", "978-0-8041-3902-1", "Science Fiction", 369},
-    {27, "Gone Girl", "Gillian Flynn", "Crown Publishing", 2012, "A psychological thriller about a missing wife.", "978-0-307-58836-4", "Thriller", 415},
-    {28, "The Girl on the Train", "Paula Hawkins", "Riverhead", 2015, "A thriller involving a missing person.", "978-1-59463-366-9", "Mystery", 316},
-    {29, "Harry Potter and the Chamber of Secrets", "J.K. Rowling", "Bloomsbury", 1998, "The second book in the Harry Potter series.", "978-0-7475-3849-0", "Fantasy", 251},
-    {30, "The Shining", "Stephen King", "Doubleday", 1977, "A horror novel about a haunted hotel.", "978-0-385-12167-5", "Horror", 447},
-    {31, "Murder on the Orient Express", "Agatha Christie", "Collins Crime Club", 1934, "A detective novel featuring Hercule Poirot.", "978-0-00-711931-8", "Mystery", 256},
-    {32, "The Handmaid's Tale", "Margaret Atwood", "McClelland and Stewart", 1985, "A dystopian novel about a totalitarian society.", "978-0-7710-0813-9", "Dystopian", 311},
-    {33, "The Book Thief", "Markus Zusak", "Picador", 2005, "A novel about a girl in Nazi Germany.", "978-0-375-84220-7", "Historical Fiction", 552},
-    {34, "The Kite Runner", "Khaled Hosseini", "Riverhead Books", 2003, "A story of friendship and redemption in Afghanistan.", "978-1-59448-000-3", "Historical Fiction", 371},
-    {35, "The Fault in Our Stars", "John Green", "Dutton Books", 2012, "A novel about two teenagers with cancer.", "978-0-525-47881-2", "Young Adult", 313},
-    {36, "The Chronicles of Narnia", "C.S. Lewis", "Geoffrey Bles", 1950, "A series of fantasy novels about a magical land.", "978-0-06-447119-0", "Fantasy", 767},
-    {37, "The Hitchhiker's Guide to the Galaxy", "Douglas Adams", "Pan Books", 1979, "A comedic science fiction series.", "978-0-330-25864-9", "Science Fiction", 224},
-    {38, "The Secret Garden", "Frances Hodgson Burnett", "Frederick A. Stokes", 1911, "A novel about a hidden garden and healing.", "978-0-14-036598-6", "Children's Literature", 331},
-    {39, "The Little Prince", "Antoine de Saint-Exupéry", "Reynal & Hitchcock", 1943, "A philosophical tale about a young prince.", "978-0-15-601219-5", "Philosophy", 96},
-    {40, "The Picture of Dorian Gray", "Oscar Wilde", "Ward, Lock & Co.", 1890, "A novel about a man who remains youthful while his portrait ages.", "978-0-14-143957-0", "Gothic Fiction", 254},
-    {41, "The Sun Also Rises", "Ernest Hemingway", "Charles Scribner's Sons", 1926, "A novel about expatriates in post-World War I Europe.", "978-0-7432-9733-2", "Fiction", 251},
-    {42, "The Bell Jar", "Sylvia Plath", "Heinemann", 1963, "A semi-autobiographical novel about mental illness.", "978-0-06-114851-4", "Psychological Fiction", 244},
-    {43, "The Color Purple", "Alice Walker", "Harcourt Brace Jovanovich", 1982, "A novel about the struggles of African American women.", "978-0-15-119154-3", "Historical Fiction", 294},
-    {44, "The Road to Wigan Pier", "George Orwell", "Victor Gollancz", 1937, "A non-fiction work about working-class life in Northern England.", "978-0-14-118529-3", "Non-Fiction", 232},
-    {45, "The Old Man and the Sea", "Ernest Hemingway", "Charles Scribner's Sons", 1952, "A novella about an old fisherman's struggle with a giant marlin.", "978-0-684-80122-3", "Fiction", 127},
-    {46, "The Stranger", "Albert Camus", "Gallimard", 1942, "A philosophical novel about absurdism.", "978-0-679-72020-3", "Philosophical Fiction", 123},
-    {47, "The Metamorphosis", "Franz Kafka", "Kurt Wolff Verlag", 1915, "A novella about a man who transforms into a giant insect.", "978-0-8052-1049-5", "Absurdist Fiction", 201},
-    {48, "The Trial", "Franz Kafka", "Verlag Die Schmiede", 1925, "A novel about a man prosecuted by a remote, inaccessible authority.", "978-0-8052-0999-4", "Philosophical Fiction", 255},
-    {49, "The Unbearable Lightness of Being", "Milan Kundera", "Gallimard", 1984, "A novel about love and politics in Communist Czechoslovakia.", "978-0-06-114852-1", "Philosophical Fiction", 320},
-    {50, "The Master and Margarita", "Mikhail Bulgakov", "YMCA Press", 1967, "A satirical novel about the devil visiting Soviet Moscow.", "978-0-14-118014-4", "Satire", 384},
-    {51, "The Name of the Wind", "Patrick Rothfuss", "DAW Books", 2007, "A fantasy novel about a gifted young man's journey.", "978-0-7564-0407-9", "Fantasy", 662},
-    {52, "The Wise Man's Fear", "Patrick Rothfuss", "DAW Books", 2011, "The second book in the Kingkiller Chronicle series.", "978-0-7564-0474-1", "Fantasy", 994},
-    {53, "The Nightingale", "Kristin Hannah", "St. Martin's Press", 2015, "A historical novel about two sisters in Nazi-occupied France.", "978-0-312-57722-3", "Historical Fiction", 440},
-    {54, "The Goldfinch", "Donna Tartt", "Little, Brown and Company", 2013, "A novel about a boy who survives a terrorist attack.", "978-0-316-05543-0", "Literary Fiction", 771},
-    {55, "The Underground Railroad", "Colson Whitehead", "Doubleday", 2016, "A novel about a young slave's escape to freedom.", "978-0-385-54236-4", "Historical Fiction", 306},
-    {56, "The Power of Now", "Eckhart Tolle", "New World Library", 1997, "A guide to spiritual enlightenment.", "978-1-57731-480-6", "Spirituality", 236},
-    {57, "The Art of War", "Sun Tzu", "Various", -500, "An ancient Chinese military treatise.", "978-1-59377-248-6", "Military Strategy", 273},
-    {58, "The Four Agreements", "Don Miguel Ruiz", "Amber-Allen Publishing", 1997, "A practical guide to personal freedom.", "978-1-878424-31-0", "Self-Help", 160},
-    {59, "The Subtle Art of Not Giving a F*ck", "Mark Manson", "HarperOne", 2016, "A counterintuitive approach to living a good life.", "978-0-06-245771-4", "Self-Help", 224},
-    {60, "The 7 Habits of Highly Effective People", "Stephen R. Covey", "Free Press", 1989, "A guide to personal and professional effectiveness.", "978-0-7432-6951-3", "Self-Help", 381},
-    {61, "The Lean Startup", "Eric Ries", "Crown Business", 2011, "A methodology for developing businesses and products.", "978-0-307-88789-4", "Business", 336},
-    {62, "The Innovator's Dilemma", "Clayton M. Christensen", "Harvard Business Review Press", 1997, "A study of how disruptive technologies affect industries.", "978-0-87584-585-2", "Business", 286},
-    {63, "The Tipping Point", "Malcolm Gladwell", "Little, Brown and Company", 2000, "A study of how small actions can create big changes.", "978-0-316-34662-7", "Sociology", 301},
-    {64, "Outliers", "Malcolm Gladwell", "Little, Brown and Company", 2008, "A study of the factors that contribute to high levels of success.", "978-0-316-01792-3", "Sociology", 309},
-    {65, "Blink", "Malcolm Gladwell", "Little, Brown and Company", 2005, "A study of the power of thinking without thinking.", "978-0-316-17232-5", "Psychology", 296},
-    {66, "Sapiens: A Brief History of Humankind", "Yuval Noah Harari", "Harper", 2014, "A exploration of the history of the human species.", "978-0-06-231609-7", "History", 443},
-    {67, "Homo Deus: A Brief History of Tomorrow", "Yuval Noah Harari", "Harper", 2016, "A exploration of the future of humanity.", "978-0-06-246431-6", "History", 450},
-    {68, "21 Lessons for the 21st Century", "Yuval Noah Harari", "Spiegel & Grau", 2018, "A study of the challenges facing humanity in the 21st century.", "978-0-525-51217-2", "History", 372},
-    {69, "The Fifth Risk", "Michael Lewis", "W. W. Norton & Company", 2018, "A study of the transition of power in the U.S. government.", "978-1-324-00261-7", "Politics", 219},
-    {70, "The Big Short", "Michael Lewis", "W. W. Norton & Company", 2010, "A study of the build-up of the housing and credit bubble.", "978-0-393-07223-5", "Economics", 266},
-    {71, "Moneyball", "Michael Lewis", "W. W. Norton & Company", 2003, "A study of the Oakland Athletics baseball team.", "978-0-393-05765-2", "Sports", 288},
-    {72, "The Blind Side", "Michael Lewis", "W. W. Norton & Company", 2006, "A story of Michael Oher and the game of football.", "978-0-393-06122-2", "Sports", 304},
-    {73, "The Immortal Life of Henrietta Lacks", "Rebecca Skloot", "Crown Publishing Group", 2010, "A story of the woman behind the HeLa cell line.", "978-1-4000-5217-2", "Biography", 381},
-    {74, "Educated", "Tara Westover", "Random House", 2018, "A memoir about self-education and family.", "978-0-399-59050-4", "Memoir", 334},
-    {75, "Becoming", "Michelle Obama", "Crown Publishing Group", 2018, "A memoir by the former First Lady of the United States.", "978-1-5247-6313-8", "Memoir", 448},
-    {76, "Born a Crime", "Trevor Noah", "Spiegel & Grau", 2016, "A memoir about growing up in South Africa.", "978-0-399-58819-8", "Memoir", 304},
-    {77, "The Glass Castle", "Jeannette Walls", "Scribner", 2005, "A memoir about resilience and redemption.", "978-0-7432-4753-5", "Memoir", 288},
-    {78, "Wild", "Cheryl Strayed", "Alfred A. Knopf", 2012, "A memoir about a solo hike on the Pacific Crest Trail.", "978-0-307-59273-6", "Memoir", 315},
-    {79, "Into the Wild", "Jon Krakauer", "Villard Books", 1996, "A story of Christopher McCandless's journey into the Alaskan wilderness.", "978-0-679-42850-6", "Biography", 207},
-    {80, "Into Thin Air", "Jon Krakauer", "Villard Books", 1997, "A firsthand account of the 1996 Mount Everest disaster.", "978-0-385-49208-9", "Non-Fiction", 368},
-    {81, "The Devil in the White City", "Erik Larson", "Crown Publishing Group", 2003, "A story of the 1893 World's Fair and a serial killer.", "978-0-609-60844-9", "Historical Non-Fiction", 447},
-    {82, "In Cold Blood", "Truman Capote", "Random House", 1965, "A non-fiction novel about the murder of the Clutter family.", "978-0-679-74558-1", "True Crime", 343},
-    {83, "The Sixth Extinction", "Elizabeth Kolbert", "Henry Holt and Company", 2014, "A study of the ongoing mass extinction of species.", "978-0-8050-9299-8", "Science", 319},
-    {84, "The Gene: An Intimate History", "Siddhartha Mukherjee", "Scribner", 2016, "A history of the gene and genetics.", "978-1-4767-3300-0", "Science", 592},
-    {85, "The Emperor of All Maladies", "Siddhartha Mukherjee", "Scribner", 2010, "A biography of cancer.", "978-1-4391-0795-9", "Science", 571},
-    {86, "The Man Who Knew Infinity", "Robert Kanigel", "Washington Square Press", 1991, "A biography of the mathematician Srinivasa Ramanujan.", "978-0-671-75061-9", "Biography", 438},
-    {87, "The Wright Brothers", "David McCullough", "Simon & Schuster", 2015, "A biography of the Wright brothers.", "978-1-4767-2874-6", "Biography", 320},
-    {88, "Alexander Hamilton", "Ron Chernow", "Penguin Press", 2004, "A biography of Alexander Hamilton.", "978-1-59420-009-0", "Biography", 818},
-    {89, "Steve Jobs", "Walter Isaacson", "Simon & Schuster", 2011, "A biography of Steve Jobs.", "978-1-4516-4853-9", "Biography", 656},
-    {90, "Einstein: His Life and Universe", "Walter Isaacson", "Simon & Schuster", 2007, "A biography of Albert Einstein.", "978-0-7432-6473-0", "Biography", 675},
-    {91, "Leonardo da Vinci", "Walter Isaacson", "Simon & Schuster", 2017, "A biography of Leonardo da Vinci.", "978-1-5011-3915-4", "Biography", 624},
-    {92, "The Diary of a Young Girl", "Anne Frank", "Contact Publishing", 1947, "A diary written by Anne Frank during World War II.", "978-0-553-29698-6", "Memoir", 283},
-    {93, "The Hiding Place", "Corrie ten Boom", "Chosen Books", 1971, "A memoir about a Dutch family hiding Jews during WWII.", "978-0-8007-8749-4", "Memoir", 269},
-    {94, "Night", "Elie Wiesel", "Hill and Wang", 1960, "A memoir about the Holocaust.", "978-0-374-50001-6", "Memoir", 120},
-    {95, "Man's Search for Meaning", "Viktor E. Frankl", "Beacon Press", 1946, "A memoir and psychological exploration of survival.", "978-0-8070-1426-4", "Psychology", 165},
-    {96, "The Road Less Traveled", "M. Scott Peck", "Simon & Schuster", 1978, "A guide to spiritual growth and self-discipline.", "978-0-7432-8037-2", "Self-Help", 315},
-    {97, "Thinking, Fast and Slow", "Daniel Kahneman", "Farrar, Straus and Giroux", 2011, "A study of the two systems that drive the way we think.", "978-0-374-27563-1", "Psychology", 499},
-    {98, "Quiet: The Power of Introverts in a World That Can't Stop Talking", "Susan Cain", "Crown Publishing Group", 2012, "A study of introversion and its value.", "978-0-307-35214-9", "Psychology", 352},
-    {99, "The Power of Habit", "Charles Duhigg", "Random House", 2012, "A study of how habits work and how they can be changed.", "978-1-4000-6928-6", "Psychology", 371},
-    {100, "Atomic Habits", "James Clear", "Avery", 2018, "A guide to building good habits and breaking bad ones.", "978-0-7352-1129-2", "Self-Help", 320},
-};
 
-void tambahBuku(int jumlah) 
+void BacaDataFile() 
 {
-    if (jumlah == 0 || jumlahBuku >= jumlah_max_buku) 
-    {
+    ifstream file("data_buku.txt");
+    if (!file.is_open()) {
+        cout << "File tidak ditemukan.\n";
         return;
     }
-    cout << "MASUKKAN DATA BUKU KE- " << jumlahBuku + 1 << endl;
-    cout << "ID Buku         : "; cin >> daftarBuku[jumlahBuku].IDBuku;
-    cout << "Judul Buku      : "; cin.ignore(); getline(cin, daftarBuku[jumlahBuku].judulBuku);
-    cout << "Penulis Buku    : "; getline(cin, daftarBuku[jumlahBuku].penulisBuku);
-    cout << "Penerbit Buku   : "; getline(cin, daftarBuku[jumlahBuku].penerbitBuku);
-    cout << "Tahun Terbit    : "; cin >> daftarBuku[jumlahBuku].tahunTerbit;
-    cin.ignore();
-    cout << "Sinopsis Buku   : "; getline(cin, daftarBuku[jumlahBuku].sinopsisBuku);
-    cout << "ISBN            : "; getline(cin, daftarBuku[jumlahBuku].ISBNBuku);
-    cout << "Genre Buku      : "; getline(cin, daftarBuku[jumlahBuku].genreBuku);
-    cout << "Jumlah Halaman  : "; cin >> daftarBuku[jumlahBuku].jumlahHalamanBuku;
-    cout << endl;
-    
-    jumlahBuku++;
-    cout << "Buku berhasil ditambahkan!" << endl;
-    tambahBuku(jumlah - 1);
+
+    while (file.eof() && jumlahBuku < jumlah_max_buku) {
+        Buku* buku = new Buku;
+        file >> buku->IDBuku;
+        file.ignore();
+        getline(file, buku->judulBuku);
+        getline(file, buku->penulisBuku);
+        getline(file, buku->penerbitBuku);
+        file >> buku->tahunTerbit;
+        file.ignore();
+        getline(file, buku->sinopsisBuku);
+        getline(file, buku->ISBNBuku);
+        getline(file, buku->genreBuku);
+        file >> buku->jumlahHalamanBuku;
+        file.ignore();
+
+        daftarBuku[jumlahBuku++] = buku;
+    }
+    file.close();
 }
 
-void cekBukuRekursif(int index) 
+void simpanDataBuku()
 {
-    if (index >= jumlahBuku) 
-    {
+    ofstream file("data_buku.txt");
+    if (!file.is_open()) {
+        cout << "Gagal membuka file untuk menyimpan data.\n";
         return;
     }
-    cout << "ID Buku         : " << daftarBuku[index].IDBuku << endl;
-    cout << "Judul Buku      : " << daftarBuku[index].judulBuku << endl;
-    cout << "Penulis Buku    : " << daftarBuku[index].penulisBuku << endl;
-    cout << "Penerbit Buku   : " << daftarBuku[index].penerbitBuku << endl;
-    cout << "Tahun Terbit    : " << daftarBuku[index].tahunTerbit << endl;
-    cout << "Sinopsis Buku   : " << daftarBuku[index].sinopsisBuku << endl;
-    cout << "ISBN            : " << daftarBuku[index].ISBNBuku << endl;
-    cout << "Genre Buku      : " << daftarBuku[index].genreBuku << endl;
-    cout << "Jumlah Halaman  : " << daftarBuku[index].jumlahHalamanBuku << endl;
-    cout << endl;
-    cekBukuRekursif(index + 1);
+
+    for (int i = 0; i < jumlahBuku; i++) {
+        file << daftarBuku[i]->IDBuku << endl;
+        file << daftarBuku[i]->judulBuku << endl;
+        file << daftarBuku[i]->penulisBuku << endl;
+        file << daftarBuku[i]->penerbitBuku << endl;
+        file << daftarBuku[i]->tahunTerbit << endl;
+        file << daftarBuku[i]->sinopsisBuku << endl;
+        file << daftarBuku[i]->ISBNBuku << endl;
+        file << daftarBuku[i]->genreBuku << endl;
+        file << daftarBuku[i]->jumlahHalamanBuku << endl;
+    }
+    file.close();
 }
 
-void cekSemuaBuku(bool sudahTerurut) 
+void tambahDataBuku() 
 {
-    if (jumlahBuku == 0) {
-        cout << "Tidak ada buku dalam daftar." << endl;
-        return;
-    }
-    if (sudahTerurut)
-    {
-        cout << "=== DAFTAR BUKU YANG TERSEDIA ===" << endl;
-        cout << endl;
-    } else
-    {
-        cout << "=== DAFTAR BUKU YANG TERSEDIA (SUDAH TERURUT ABJAD)===" << endl;
-        cout << endl;
-    }
-    cout << endl;
-    cekBukuRekursif(0);
-    system("pause");
+    int jumlahInput;
     system("cls");
+    cout << "Berapa buku yang ingin ditambahkan? ";
+    cin >> jumlahInput;
+    cin.ignore();
+
+    for (int i = 0; i < jumlahInput; i++) {
+        if (jumlahBuku >= jumlah_max_buku) {
+            cout << "Data penuh. Tidak bisa menambah lebih banyak.\n";
+            break;
+        }
+
+        cout << "\n--- Input Buku ke-" << jumlahBuku + 1 << " ---\n";
+        Buku* buku = new Buku;
+        cin.ignore();
+        cout << "ID Buku         : "; cin >> buku->IDBuku;
+        cout << "Judul Buku      : "; cin.ignore(); getline(cin, buku->judulBuku);
+        cout << "Penulis Buku    : "; getline(cin, buku->penulisBuku);
+        cout << "Penerbit Buku   : "; getline(cin, buku->penerbitBuku);
+        cout << "Tahun Terbit    : "; cin >> buku->tahunTerbit;
+        cin.ignore();
+        cout << "Sinopsis Buku   : "; getline(cin, buku->sinopsisBuku);
+        cout << "ISBN            : "; getline(cin, buku->ISBNBuku);
+        cout << "Genre Buku      : "; getline(cin, buku->genreBuku);
+        cout << "Jumlah Halaman  : "; cin >> buku->jumlahHalamanBuku;
+        cin.ignore();
+
+        daftarBuku[jumlahBuku++] = buku;
+        simpanDataBuku();
+        cout << "Buku berhasil ditambahkan!" << endl;
+    }
 }
 
-void cariBuku() {
+void hapusBuku() 
+{
     if (jumlahBuku == 0) {
         cout << "Tidak ada buku dalam daftar." << endl;
         return;
     }
+    int id;
+    cout << "Masukkan ID Buku yang ingin dihapus: ";
+    cin >> id;
+
+    for (int i = 0; i < jumlahBuku; i++) {
+        if (daftarBuku[i]->IDBuku == id) {
+            delete daftarBuku[i];
+            for (int j = i; j < jumlahBuku - 1; j++) {
+                daftarBuku[j] = daftarBuku[j + 1];
+            }
+            jumlahBuku--;
+            cout << "Buku dengan ID " << id << " berhasil dihapus." << endl;
+            return;
+        }
+    }
+    cout << "Buku dengan ID " << id << " tidak ditemukan." << endl;
+}
+
+void cariBuku()
+{
+    if (jumlahBuku == 0) {
+        cout << "Tidak ada buku dalam daftar." << endl;
+        return;
+    }
+    
     int pilihan;
     system("cls");
     cout << "Cari Buku Berdasarkan:" << endl;
@@ -200,72 +144,72 @@ void cariBuku() {
     cout << "Pilih menu: ";
     cin >> pilihan;
     cin.ignore();
-
-    switch (pilihan) {
-        case 1: {
-            int id;
-            system("cls");
-            cout << "Masukkan ID Buku: ";
-            cin >> id;
-            cin.ignore();
-            bool found = false;
-            for (int i = 0; i < jumlahBuku; i++) {
-                if (daftarBuku[i].IDBuku == id) {
-                    cout << endl;
-                    cout << "ID Buku         : " << daftarBuku[i].IDBuku << endl;
-                    cout << "Judul Buku      : " << daftarBuku[i].judulBuku << endl;
-                    cout << "Penulis Buku    : " << daftarBuku[i].penulisBuku << endl;
-                    cout << "Penerbit Buku   : " << daftarBuku[i].penerbitBuku << endl;
-                    cout << "Tahun Terbit    : " << daftarBuku[i].tahunTerbit << endl;
-                    cout << "Sinopsis Buku   : " << daftarBuku[i].sinopsisBuku << endl;
-                    cout << "ISBN            : " << daftarBuku[i].ISBNBuku << endl;
-                    cout << "Genre Buku      : " << daftarBuku[i].genreBuku << endl;
-                    cout << "Jumlah Halaman  : " << daftarBuku[i].jumlahHalamanBuku << endl;
-                    cout << endl;
-                    found = true;
+    
+        switch (pilihan) {
+            case 1: {
+                int id;
+                system("cls");
+                cout << "Masukkan ID Buku: ";
+                cin >> id;
+                cin.ignore();
+                bool found = false;
+                for (int i = 0; i < jumlahBuku; i++) {
+                    if (daftarBuku[i]->IDBuku == id) {
+                        cout << "ID Buku         : " << daftarBuku[i]->IDBuku << endl;
+                        cout << "Judul Buku      : " << daftarBuku[i]->judulBuku << endl;
+                        cout << "Penulis Buku    : " << daftarBuku[i]->penulisBuku << endl;
+                        cout << "Penerbit Buku   : " << daftarBuku[i]->penerbitBuku << endl;
+                        cout << "Tahun Terbit    : " << daftarBuku[i]->tahunTerbit << endl;
+                        cout << "Sinopsis Buku   : " << daftarBuku[i]->sinopsisBuku << endl;
+                        cout << "ISBN            : " << daftarBuku[i]->ISBNBuku << endl;
+                        cout << "Genre Buku      : " << daftarBuku[i]->genreBuku << endl;
+                        cout << "Jumlah Halaman  : " << daftarBuku[i]->jumlahHalamanBuku << endl;
+                        found = true;
+                        break;
+                    {
                 }
-            }
-            if (!found) {
-                cout << "Buku dengan ID \"" << id << "\" tidak ditemukan." << endl;
-            }
-            break;
-        }
-        case 2: {
-            string judulcari;
-            cout << "Masukkan Judul Buku: "; getline(cin, judulcari);
-            bool found = false;
-            cout << "Hasil pencarian untuk \"" << judulcari << "\":" << endl;
-            for (int i = 0; i < jumlahBuku; i++) {
-                if (daftarBuku[i].judulBuku.find(judulcari) !=string::npos) {
-                    cout << "ID Buku         : " << daftarBuku[i].IDBuku << endl;
-                    cout << "Judul Buku      : " << daftarBuku[i].judulBuku << endl;
-                    cout << "Penulis Buku    : " << daftarBuku[i].penulisBuku << endl;
-                    cout << "Penerbit Buku   : " << daftarBuku[i].penerbitBuku << endl;
-                    cout << "Tahun Terbit    : " << daftarBuku[i].tahunTerbit << endl;
-                    cout << "Sinopsis Buku   : " << daftarBuku[i].sinopsisBuku << endl;
-                    cout << "ISBN            : " << daftarBuku[i].ISBNBuku << endl;
-                    cout << "Genre Buku      : " << daftarBuku[i].genreBuku << endl;
-                    cout << "Jumlah Halaman  : " << daftarBuku[i].jumlahHalamanBuku << endl;
-                    cout << endl;
-                    found = true;
+                if (!found) {
+                    cout << "Buku dengan ID \"" << id << "\" tidak ditemukan." << endl;
                 }
+                break;
             }
-            if (!found) {
-                cout << "Buku dengan judul \"" << judulcari << "\" tidak ditemukan." << endl;
+            case 2: {
+                string judulcari;
+                cout << "Masukkan Judul Buku: "; getline(cin, judulcari);
+                bool found = false;
+                cout << "Hasil pencarian untuk \"" << judulcari << "\":" << endl;
+                for (int i = 0; i < jumlahBuku; i++) {
+                    if (daftarBuku[i]->judulBuku.find(judulcari) != string::npos) {
+                        cout << "ID Buku         : " << daftarBuku[i]->IDBuku << endl;
+                        cout << "Judul Buku      : " << daftarBuku[i]->judulBuku << endl;
+                        cout << "Penulis Buku    : " << daftarBuku[i]->penulisBuku << endl;
+                        cout << "Penerbit Buku   : " << daftarBuku[i]->penerbitBuku << endl;
+                        cout << "Tahun Terbit    : " << daftarBuku[i]->tahunTerbit << endl;
+                        cout << "Sinopsis Buku   : " << daftarBuku[i]->sinopsisBuku << endl;
+                        cout << "ISBN            : " << daftarBuku[i]->ISBNBuku << endl;
+                        cout << "Genre Buku      : " << daftarBuku[i]->genreBuku << endl;
+                        cout << "Jumlah Halaman  : " << daftarBuku[i]->jumlahHalamanBuku << endl;
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    cout << "Buku dengan judul \"" << judulcari << "\" tidak ditemukan." << endl;
+                }
+                break;
             }
-            break;
+            default:
+                cout << "Pilihan tidak valid!" << endl;
         }
-        default:
-            cout << "Pilihan tidak valid!" << endl;
     }
 }
+}
 
-void sortBerdasarkanAbjad() 
+void sortingBukuAbjad() 
 {
     for (int i = 0; i < jumlahBuku - 1; i++) {
         for (int j = 0; j < jumlahBuku - i - 1; j++) {
-            if (daftarBuku[j].judulBuku[0] > daftarBuku[j + 1].judulBuku[0]) {
-                Buku temp = daftarBuku[j];
+            if (daftarBuku[j]->judulBuku > daftarBuku[j + 1]->judulBuku) {
+                Buku* temp = daftarBuku[j];
                 daftarBuku[j] = daftarBuku[j + 1];
                 daftarBuku[j + 1] = temp;
             }
@@ -275,7 +219,6 @@ void sortBerdasarkanAbjad()
     cout << "Buku berhasil diurutkan berdasarkan huruf awal judul secara alfabetis!" << endl;
     system("pause");
     system("cls");
-
 }
 
 void menuAdmin() {
@@ -284,38 +227,28 @@ void menuAdmin() {
     do {
         cout << "\n=== MENU ADMIN ===" << endl;
         cout << "[1] Tambah Daftar Buku" << endl;
-        cout << "[2] Cek Semua Buku" << endl;
-        cout << "[3] Cari Buku" << endl;
-        cout << "[4] Urutkan Buku sesuai Abjad" << endl;
-        cout << "[5] Logout" << endl;
+        cout << "[2] Cari Buku" << endl;
+        cout << "[3] Urutkan Buku sesuai Abjad" << endl;
+        cout << "[4] Logout" << endl;
         cout << "Pilih menu: ";
         cin >> pilihan;
         cin.ignore();
         
         switch (pilihan) {
             case 1: 
-            int jumlah;
             system("cls");
-            cout << "Masukkan jumlah buku yang ingin ditambahkan: "; 
-            cin >> jumlah;
-            tambahBuku(jumlah);
+            tambahDataBuku();
             break;
 
             case 2:
-            system("cls");
-            cekSemuaBuku(true);
-            break;
-
-            case 3:
             cariBuku();
             break;
 
-            case 4:
-            sortBerdasarkanAbjad();
-            cekSemuaBuku(true); 
+            case 3:
+            sortingBukuAbjad();
             break;
 
-            case 5: 
+            case 4: 
             cout << "Logout berhasil!" << endl; 
             break;
 

@@ -1,0 +1,43 @@
+1, To Kill a Mockingbird, Harper Lee, J.B. Lippincott & Co., 1960, A novel about racial injustice in the Deep South., 978-0-06-112008-4, Fiction, 281
+2, 1984, George Orwell, Secker & Warburg, 1949, A dystopian social science fiction novel., 978-0-452-28423-4, Dystopian, 328
+3, The Great Gatsby, F. Scott Fitzgerald, Charles Scribner's Sons, 1925, A novel about the American dream and its pitfalls., 978-0-7432-7356-5, Fiction, 180
+4, One Hundred Years of Solitude, Gabriel Garcia Marquez, Harper & Row, 1967, A multi-generational story of the Buendía family., 978-0-06-088328-7, Magical Realism, 417
+5, Pride and Prejudice, Jane Austen, T. Egerton, 1813, A romantic novel about manners and marriage., 978-0-19-953556-9, Romance, 279
+6, The Catcher in the Rye, J.D. Salinger, Little, Brown and Company, 1951, A novel about teenage rebellion and angst., 978-0-316-76948-0, Fiction, 234
+7, Moby-Dick, Herman Melville, Harper & Brothers, 1851, A novel about the voyage of the whaling ship Pequod., 978-0-14-243724-7, Adventure, 635
+8, War and Peace, Leo Tolstoy, The Russian Messenger, 1869, A novel that chronicles the French invasion of Russia., 978-0-19-923276-5, Historical Fiction, 1225
+9, The Hobbit, J.R.R. Tolkien, George Allen & Unwin, 1937, A fantasy novel about the journey of Bilbo Baggins., 978-0-618-00221-3, Fantasy, 310
+10, The Lord of the Rings, J.R.R. Tolkien, George Allen & Unwin, 1954, A high-fantasy novel about the quest to destroy the One Ring., 978-0-618-00222-0, Fantasy, 1178
+11, Jane Eyre, Charlotte Brontë, Smith, Elder & Co., 1847, A novel about the experiences of the titular character., 978-0-14-243720-9, Romance, 532
+12, Crime and Punishment, Fyodor Dostoevsky, The Russian Messenger, 1866, A novel about the mental anguish of a young man., 978-0-14-310763-3, Psychological Fiction, 671
+13, The Grapes of Wrath, John Steinbeck, The Viking Press, 1939, A novel about the Great Depression and the Dust Bowl., 978-0-14-303943-3, Historical Fiction, 464
+14, The Divine Comedy, Dante Alighieri, Various, 1320, An epic poem about the journey through Hell, Purgatory, and Paradise., 978-0-14-243722-3, Epic Poetry, 798
+15, The Brothers Karamazov, Fyodor Dostoevsky, The Russian Messenger, 1880, A novel about the spiritual and moral struggles of four brothers., 978-0-14-044924-2, Philosophical Fiction, 796
+16, Brave New World, Aldous Huxley, Chatto & Windus, 1932, A dystopian novel about a futuristic society., 978-0-06-085052-4, Dystopian, 311
+17, Wuthering Heights, Emily Brontë, Thomas Cautley Newby, 1847, A novel about the intense and destructive love between Catherine Earnshaw and Heathcliff., 978-0-14-143955-6, Romance, 416
+18, The Odyssey, Homer, Various, -800, An epic poem about the journey of Odysseus., 978-0-14-026886-7, Epic Poetry, 541
+19, Catch-22, Joseph Heller, Simon & Schuster, 1961, A satirical novel about World War II., 978-0-684-83339-9, Satire, 453
+20, Ulysses, James Joyce, Shakespeare and Company, 1922, A modernist novel about a single day in Dublin., 978-0-679-72232-0, Modernist Fiction, 730
+21, The Da Vinci Code, Dan Brown, Doubleday, 2003, A mystery thriller about the Holy Grail., 978-0-385-50420-1, Mystery, 454
+22, The Alchemist, Paulo Coelho, HarperTorch, 1988, A philosophical book about a shepherd's journey., 978-0-06-112008-5, Philosophy, 208
+23, The Hunger Games, Suzanne Collins, Scholastic, 2008, A dystopian novel about a televised battle., 978-0-439-02352-8, Dystopian, 374
+24, The Road, Cormac McCarthy, Alfred A. Knopf, 2006, A post-apocalyptic novel of survival., 978-0-307-26543-2, Post-Apocalyptic, 241
+25, Life of Pi, Yann Martel, Knopf Canada, 2001, A story of survival at sea with a tiger., 978-0-676-97376-0, Adventure, 326
+26, The Martian, Andy Weir, Crown, 2011, An astronaut's struggle to survive on Mars., 978-0-8041-3902-1, Science Fiction, 369
+27, Gone Girl, Gillian Flynn, Crown Publishing, 2012, A psychological thriller about a missing wife., 978-0-307-58836-4, Thriller, 415
+28, The Girl on the Train, Paula Hawkins, Riverhead, 2015, A thriller involving a missing person., 978-1-59463-366-9, Mystery, 316
+29, Harry Potter and the Chamber of Secrets, J.K. Rowling, Bloomsbury, 1998, The second book in the Harry Potter series., 978-0-7475-3849-0, Fantasy, 251
+30, The Shining, Stephen King, Doubleday, 1977, A horror novel about a haunted hotel., 978-0-385-12167-5, Horror, 447
+31, Murder on the Orient Express, Agatha Christie, Collins Crime Club, 1934, A detective novel featuring Hercule Poirot., 978-0-00-711931-8, Mystery, 256
+32, The Handmaid's Tale, Margaret Atwood, McClelland and Stewart, 1985, A dystopian novel about a totalitarian society., 978-0-7710-0813-9, Dystopian, 311
+33, The Book Thief, Markus Zusak, Picador, 2005, A novel about a girl in Nazi Germany., 978-0-375-84220-7, Historical Fiction, 552
+34, The Kite Runner, Khaled Hosseini, Riverhead Books, 2003, A story of friendship and redemption in Afghanistan., 978-1-59448-000-3, Historical Fiction, 371
+35, The Fault in Our Stars, John Green, Dutton Books, 2012, A novel about two teenagers with cancer., 978-0-525-47881-2, Young Adult, 313
+36, The Chronicles of Narnia, C.S. Lewis, Geoffrey Bles, 1950, A series of fantasy novels about a magical land., 978-0-06-447119-0, Fantasy, 767
+37, The Hitchhiker's Guide to the Galaxy, Douglas Adams, Pan Books, 1979, A comedic science fiction series., 978-0-330-25864-9, Science Fiction, 224
+38, The Secret Garden, Frances Hodgson Burnett, Frederick A. Stokes, 1911, A novel about a hidden garden and healing., 978-0-14-036598-6, Children's Literature, 331
+39, The Little Prince, Antoine de Saint-Exupéry, Reynal & Hitchcock, 1943, A philosophical tale about a young prince., 978-0-15-601219-5, Philosophy, 96
+40, The Picture of Dorian Gray, Oscar Wilde, Ward, Lock & Co., 1890, A novel about a man who remains youthful while his portrait ages., 978-0-14-143957-0, Gothic Fiction, 254
+41, To Kill a Mockingbird, Harper Lee, J.B. Lippincott & Co., 1960, A novel about racial injustice in the Deep South., 978-0-06-112008-4, Fiction, 281
+42, 1984, George Orwell, Secker & Warburg, 1949, A dystopian social science fiction novel., 978-0-452-28423-4, Dystopian, 328
+43, The Great Gatsby, F. Scott Fitzgerald, Charles Scribner's Sons, 1925, A novel about the American dream and its pitfalls., 978-0-7432-7356-5, Fiction, 180
