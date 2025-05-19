@@ -15,10 +15,12 @@ struct Buku
     string ISBNBuku;
     string genreBuku;
     int jumlahHalamanBuku;
+    int jumlahsalinan;
 };
 
-Buku* daftarBuku[jumlah_max_buku];
 int jumlahBuku = 120;
+Buku* daftarBuku[jumlah_max_buku];
+
 
 void BacaDataFile() 
 {
@@ -136,7 +138,9 @@ void cariBuku()
         return;
     }
     
-    int pilihan;
+    int pilihan, id;
+    string judulcari;
+
     system("cls");
     cout << "Cari Buku Berdasarkan:" << endl;
     cout << "[1] ID Buku" << endl;
@@ -147,7 +151,7 @@ void cariBuku()
     
         switch (pilihan) {
             case 1: {
-                int id;
+                
                 system("cls");
                 cout << "Masukkan ID Buku: ";
                 cin >> id;
@@ -173,8 +177,9 @@ void cariBuku()
                 }
                 break;
             }
+            
             case 2: {
-                string judulcari;
+                
                 cout << "Masukkan Judul Buku: "; getline(cin, judulcari);
                 bool found = false;
                 cout << "Hasil pencarian untuk \"" << judulcari << "\":" << endl;
@@ -258,7 +263,4 @@ void menuAdmin() {
     } while (pilihan != 4);
 }
 
-int main()
-{
-    menuAdmin();
-}
+
