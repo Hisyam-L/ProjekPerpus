@@ -18,12 +18,13 @@ void login_member(){
         
         switch (pilihan) {
             case 1: 
-            system("cls");
-            bacaDataBuku();
+                system("cls");
+                bacaDataBuku();
             break;
                 
             case 2:
-
+                system("cls");
+                pinjam_buku();
             break;
 
             case 3: cout << "Logout berhasil!" << endl; 
