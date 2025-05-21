@@ -26,11 +26,6 @@ struct Buku
 int jumlah_buku = 100; 
 int jumlah_buku_dipinjam = 0; 
 
-struct akun{
-    string username;
-    string password;
-
-};
 
 struct riwayat_pinjam{
     string judulBuku;

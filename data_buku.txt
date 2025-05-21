@@ -1,5 +1,5 @@
 1,To Kill a Mockingbird,Harper Lee,J.B. Lippincott & Co.,1960,A novel about racial injustice in the Deep South.,978-0-06-112008-4,Fiction,281,3
-2,1984,George Orwell,Secker & Warburg,1949,A dystopian social science fiction novel.,978-0-452-28423-4,Dystopian,328,3
+2,1984,George Orwell,Secker & Warburg,1949,A dystopian social science fiction novel.,978-0-452-28423-4,Dystopian,328,2
 3,The Great Gatsby,F. Scott Fitzgerald,Charles Scribner's Sons,1925,A novel about the American dream and its pitfalls.,978-0-7432-7356-5,Fiction,180,1
 4,One Hundred Years of Solitude,Gabriel Garcia Marquez,Harper & Row,1967,A multi-generational story of the Buendía family.,978-0-06-088328-7,Magical Realism,417,4
 5,Pride and Prejudice,Jane Austen,T. Egerton,1813,A romantic novel about manners and marriage.,978-0-19-953556-9,Romance,279,1

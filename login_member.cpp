@@ -1,5 +1,4 @@
-
-#include "buku.cpp";
+#include "function_member.cpp";
 
 
 
@@ -20,22 +19,15 @@ void login_member(){
         
         switch (pilihan) {
             case 1: 
-<<<<<<< HEAD
                 system("cls");
                 bacaDataBuku(databuku);
             break;
                 
-=======
-            int jumlah;
-            system("cls");
-                cout << "Buku yang tersedia : ";
-
->>>>>>> b70cda7bfaa66dbbc25c5e804a1f7d48f2e1c8e6
             case 2:
-
+                pinjam_buku();
             break;
 
-            case 3: cout << "Logout berhasil!" << endl; 
+            case 3: 
                 caribuku();
             break;
 

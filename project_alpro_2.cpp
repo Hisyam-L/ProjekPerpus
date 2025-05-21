@@ -1,7 +1,7 @@
-#include "buku.cpp";
+#include "login_member.cpp";
 
 int a;
-//tes
+
 struct akun 
 {
     string username;
@@ -162,6 +162,7 @@ void login(){
                     menuAdmin();
                 } else {
                     cout << "Selamat datang, " << input_user << "!\n" << endl;
+                    login_member();
                 }
                 
             } else{
