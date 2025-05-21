@@ -3,6 +3,8 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <vector>
+#include <ctime>
 using namespace std;
 
 struct Buku
@@ -22,3 +24,17 @@ const int jumlah_max_buku = 3000;
 
 
 int jumlah_buku = 100; 
+int jumlah_buku_dipinjam = 0; 
+
+struct akun{
+    string username;
+    string password;
+
+};
+
+struct riwayat_pinjam{
+    string judulBuku;
+    string username;
+    string waktupinjam;
+    string idbuku;
+};

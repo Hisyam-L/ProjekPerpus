@@ -4,6 +4,7 @@
 
 void login_member(){
     int pilihan = 4;
+    string databuku = "data_buku.txt";
     do {
         cout << "\n=== MENU MEMBER ===" << endl;
         cout << "[1] Pilihan Buku" << endl;
@@ -19,7 +20,7 @@ void login_member(){
         switch (pilihan) {
             case 1: 
                 system("cls");
-                bacaDataBuku();
+                bacaDataBuku(databuku);
             break;
                 
             case 2:
@@ -28,6 +29,7 @@ void login_member(){
             break;
 
             case 3: cout << "Logout berhasil!" << endl; 
+                caribuku();
             break;
 
             case 4: cout << "Logout berhasil!" << endl; 

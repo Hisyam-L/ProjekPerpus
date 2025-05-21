@@ -34,8 +34,7 @@ string stringtobuku(const Buku &buku){
            to_string(buku.jumlahsalinan);
 }
 
-void bacaDataBuku() {
-    string data_buku = "data_buku.txt";
+void bacaDataBuku(string data_buku) {
     ifstream file(data_buku);
 
     if (!file.is_open()) {
@@ -96,12 +95,14 @@ void bacaDataBuku() {
 void pinjam_buku() {
     ifstream file("data_buku.txt");
     ofstream temp("dummy.txt");
+    ifstream riwayat("riwayat_pinjam.txt");
+    ofstream dummyriwayat("dummy_riwayat.txt");
+    riwayat_pinjam riwayatPinjam;
     if (!file.is_open() || !temp.is_open()) {
         cerr << "Gagal membuka file.\n";
         return;
     }
 
-    cin.ignore();
 
     cout << "Masukkan nama buku yang ingin dipinjam: ";
     string namabuku;
@@ -118,6 +119,8 @@ void pinjam_buku() {
                 b.jumlahsalinan--;
                 cout << "Berhasil meminjam \"" << b.judulBuku
                      << "\". Sisa salinan: " << b.jumlahsalinan << "\n";
+                    
+                     
             } else {
                 cout << "Maaf, \"" << b.judulBuku << "\" sedang habis.\n";
             }
@@ -146,14 +149,76 @@ void pinjam_buku() {
     rename("dummy.txt", "data_buku.txt");
 }
 
-int carinamabuku(string nama_buku, int indeks){
-    if (indeks >= jumlah_buku)
-    {
-        return -1;
-    }
-    else{
 
+vector<Buku> caribukuberdasarkan(int pilihanberdasarkan, const string& katakunci) {
+    ifstream file("data_buku.txt");
+    vector<Buku> hasil;
+
+    if (!file.is_open()) {
+        cerr << "Tidak dapat membuka file.\n";
+        return hasil;
     }
-    
-    
+
+    string line;
+    while (getline(file, line)) {
+        Buku buku = bukutostring(line);
+
+        if ((pilihanberdasarkan == 1 && buku.judulBuku == katakunci) ||
+            (pilihanberdasarkan == 2 && buku.penulisBuku == katakunci) ||
+            (pilihanberdasarkan == 3 && buku.genreBuku == katakunci)) {
+            hasil.push_back(buku); 
+        }
+    }
+
+    file.close();
+    return hasil;
 }
+
+
+void caribuku() {
+    bool keluarcari = false;
+
+    while (!keluarcari) {
+        int pilihancari;
+        string katakunci;
+
+        cout << "Mencari berdasarkan apa ?\n";
+        cout << "1. Judul\n2. Penulis\n3. Genre\n4. Keluar\n";
+        cout << "Pilihan: ";
+        cin >> pilihancari;
+        cin.ignore();
+
+        if (pilihancari == 4) {
+            keluarcari = true;
+            continue;
+        }
+
+        cout << "Masukkan kata kunci: ";
+        getline(cin, katakunci);
+
+        vector<Buku> hasil = caribukuberdasarkan(pilihancari, katakunci);
+
+        if (hasil.empty()) {
+            cout << "Tidak ditemukan buku dengan kriteria tersebut.\n\n";
+        } else {
+            int nomor = 1;
+            for (const auto& buku : hasil) {
+                cout << "==========================================\n";
+                cout << "           Data Buku Ke-" << nomor++ << endl;
+                cout << "==========================================\n";
+                cout << left << setw(20) << "ID Buku"        << ": " << buku.IDBuku << endl;
+                cout << left << setw(20) << "Judul"          << ": " << buku.judulBuku << endl;
+                cout << left << setw(20) << "Penulis"        << ": " << buku.penulisBuku << endl;
+                cout << left << setw(20) << "Penerbit"       << ": " << buku.penerbitBuku << endl;
+                cout << left << setw(20) << "Tahun Terbit"   << ": " << buku.tahunTerbit << endl;
+                cout << left << setw(20) << "Sinopsis"       << ": " << buku.sinopsisBuku << endl;
+                cout << left << setw(20) << "ISBN"           << ": " << buku.ISBNBuku << endl;
+                cout << left << setw(20) << "Genre"          << ": " << buku.genreBuku << endl;
+                cout << left << setw(20) << "Jumlah Halaman" << ": " << buku.jumlahHalamanBuku << endl;
+                cout << left << setw(20) << "Jumlah Salinan" << ": " << buku.jumlahsalinan << endl;
+                cout << endl;
+            }
+        }
+    }
+}
+
