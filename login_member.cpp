@@ -24,27 +24,29 @@ void login_member(string inputuser){
             break;
                 
             case 2:
+            system("cls");
                 pinjam_buku(inputuser);
             break;
 
             case 3: 
+            system("cls");
                 caribuku();
             break;
 
-            case 4: cout << "Logout berhasil!" << endl; 
+            case 4: 
+            system("cls");
                 kembalikan_buku(inputuser);
             break;
 
-            case 5: cout << "Logout berhasil!" << endl; 
+            case 5: 
+            system("cls");
                 riwayat_pinjam_buku(inputuser);
             break;
 
-
-            case 7: cout << "Logout berhasil!" << endl; 
-
+            case 6: 
+            system("cls");
+                cout << "Anda telah keluar";   
             break;
-
-
 
             default: cout << "Pilihan tidak valid!" << endl;
             break;
