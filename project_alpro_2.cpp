@@ -1,4 +1,4 @@
-#include "login_member.cpp";
+#include "buku.cpp";
 
 int a;
 //tes
@@ -14,7 +14,10 @@ struct buku
     string penulis;
 };
 
-
+//Varibel buat Buku
+const int max_buku = 3000;
+int bukucount = 0;
+buku daftarBuku[max_buku];
 
 //Punya Akun
 const int max_user = 1000;
@@ -23,11 +26,36 @@ akun acc[max_user];
 
 bool found = 0;
 
+void tambahBukuRekursif(int jumlah) {
+    if (jumlah == 0 || bukucount >= max_buku) {
+        return;
+    }
+    cout << "Masukkan judul buku: ";
+    cin.ignore();
+    getline(cin, daftarBuku[bukucount].judul);
+    cout << "Masukkan penulis buku: ";
+    getline(cin, daftarBuku[bukucount].penulis);
+    bukucount++;
+    cout << "Buku berhasil ditambahkan!" << endl;
+    tambahBukuRekursif(jumlah - 1);
+}
 
+void cekBukuRekursif(int index) {
+    if (index >= bukucount) {
+        return;
+    }
+    cout << "Judul: " << daftarBuku[index].judul << ", Penulis: " << daftarBuku[index].penulis << endl;
+    cekBukuRekursif(index + 1);
+}
 
-
-
-
+void cekBuku() {
+    if (bukucount == 0) {
+        cout << "Tidak ada buku dalam daftar." << endl;
+        return;
+    }
+    cout << "Daftar Buku:" << endl;
+    cekBukuRekursif(0);
+}
 
 void menuAdmin() {
     system("cls");
@@ -47,9 +75,9 @@ void menuAdmin() {
             int jumlah;
                 cout << "Masukkan jumlah buku yang ingin ditambahkan: ";
                 cin >> jumlah;
-
+                tambahBukuRekursif(jumlah);
             case 2:
-            
+            cekBuku();
             case 4: cout << "Logout berhasil!" << endl; break;
             default: cout << "Pilihan tidak valid!" << endl;
         }
@@ -134,7 +162,6 @@ void login(){
                     menuAdmin();
                 } else {
                     cout << "Selamat datang, " << input_user << "!\n" << endl;
-                    login_member();
                 }
                 
             } else{

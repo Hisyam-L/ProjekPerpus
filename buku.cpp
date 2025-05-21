@@ -9,6 +9,7 @@ using namespace std;
 
 struct Buku
 {
+    
     int IDBuku;
     string judulBuku;
     string penulisBuku;
@@ -20,7 +21,6 @@ struct Buku
     int jumlahHalamanBuku;
     int jumlahsalinan;
 };
-const int jumlah_max_buku = 3000;
 
 
 int jumlah_buku = 100; 
