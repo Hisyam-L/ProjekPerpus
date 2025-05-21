@@ -1,5 +1,24 @@
 #include "buku.cpp"
 
+
+riwayat_pinjam riwayattostring(const string& line){
+    stringstream ss(line);
+    riwayat_pinjam riwayat;
+    string item;
+
+    getline(ss, riwayat.judulBuku, ',');
+    getline(ss, riwayat.username, ',');
+    getline(ss, riwayat.waktupinjam, ',');
+    getline(ss, item, ',');
+    riwayat.idbuku = stoi(item);
+
+    return riwayat;
+}
+
+string stringtoriwayat(const riwayat_pinjam& riwayat) {
+    return riwayat.judulBuku + "," + riwayat.username + "," + riwayat.waktupinjam + "," + to_string(riwayat.idbuku);
+}
+
 Buku bukutostring(const string& line){
         stringstream ss(line);
         string item;
@@ -69,7 +88,6 @@ void bacaDataBuku(string data_buku) {
         getline(ss, item, ',');
         buku.jumlahsalinan = stoi(item);
 
-        // Tampilkan data dalam format rapi
         cout << "==========================================" << endl;
         cout << "           Data Buku Ke-" << nomor++ << endl;
         cout << "==========================================" << endl;
@@ -92,17 +110,26 @@ void bacaDataBuku(string data_buku) {
 
 
 
-void pinjam_buku() {
+void pinjam_buku(string user) {
     ifstream file("data_buku.txt");
     ofstream temp("dummy.txt");
-    ifstream riwayat("riwayat_pinjam.txt");
-    ofstream dummyriwayat("dummy_riwayat.txt");
-    riwayat_pinjam riwayatPinjam;
+
     if (!file.is_open() || !temp.is_open()) {
-        cerr << "Gagal membuka file.\n";
+        cerr << "Gagal membuka file data_buku atau dummy.\n";
         return;
     }
 
+    vector<riwayat_pinjam> riwayatList;
+    ifstream riwayatFile("riwayat_pinjam.txt");
+    if (riwayatFile.is_open()) {
+        string line;
+        while (getline(riwayatFile, line)) {
+            if (!line.empty()) {
+                riwayatList.push_back(riwayattostring(line));
+            }
+        }
+        riwayatFile.close();
+    }
 
     cout << "Masukkan nama buku yang ingin dipinjam: ";
     string namabuku;
@@ -110,6 +137,7 @@ void pinjam_buku() {
 
     string line;
     bool found = false;
+
     while (getline(file, line)) {
         Buku b = bukutostring(line);
 
@@ -119,20 +147,34 @@ void pinjam_buku() {
                 b.jumlahsalinan--;
                 cout << "Berhasil meminjam \"" << b.judulBuku
                      << "\". Sisa salinan: " << b.jumlahsalinan << "\n";
-                    
-                     
+
+                time_t now = time(0);
+                char* dt_raw = ctime(&now);
+                string dt(dt_raw);
+                if (!dt.empty() && dt.back() == '\n') {
+                    dt.pop_back();
+                }
+
+                riwayat_pinjam baru;
+                baru.judulBuku = b.judulBuku;
+                baru.username = user;
+                baru.waktupinjam = dt;
+                baru.idbuku = b.IDBuku;
+                riwayatList.push_back(baru);
+
             } else {
                 cout << "Maaf, \"" << b.judulBuku << "\" sedang habis.\n";
             }
         }
+
         temp << to_string(b.IDBuku) << ","
-             << b.judulBuku    << ","
-             << b.penulisBuku  << ","
+             << b.judulBuku << ","
+             << b.penulisBuku << ","
              << b.penerbitBuku << ","
              << to_string(b.tahunTerbit) << ","
              << b.sinopsisBuku << ","
-             << b.ISBNBuku     << ","
-             << b.genreBuku    << ","
+             << b.ISBNBuku << ","
+             << b.genreBuku << ","
              << to_string(b.jumlahHalamanBuku) << ","
              << to_string(b.jumlahsalinan)
              << "\n";
@@ -144,6 +186,19 @@ void pinjam_buku() {
 
     file.close();
     temp.close();
+
+    ofstream riwayatOut("riwayat_pinjam.txt");
+    if (!riwayatOut.is_open()) {
+        cerr << "Gagal membuka file riwayat_pinjam.txt untuk menulis.\n";
+        return;
+    }
+    for (const auto& r : riwayatList) {
+        riwayatOut << r.judulBuku << ","
+                   << r.username << ","
+                   << r.waktupinjam << ","
+                   << r.idbuku << "\n";
+    }
+    riwayatOut.close();
 
     remove("data_buku.txt");
     rename("dummy.txt", "data_buku.txt");
@@ -172,7 +227,7 @@ vector<Buku> caribukuberdasarkan(int pilihanberdasarkan, const string& katakunci
 
     file.close();
     return hasil;
-}
+};
 
 
 void caribuku() {
@@ -222,3 +277,106 @@ void caribuku() {
     }
 }
 
+
+
+void riwayat_pinjam_buku(string username) {
+    ifstream file("riwayat_pinjam.txt");
+    if (!file.is_open()) {
+        cerr << "Gagal membuka file riwayat.\n";
+        return;
+    }
+
+    cout << "Berikut adalah riwayat pinjam buku Anda:\n";
+    string line;
+    int nomor = 1;
+
+    while (getline(file, line)) {
+        riwayat_pinjam r = riwayattostring(line);
+        if (r.username == username) {
+            cout << "----------------------------------\n";
+            cout << "Riwayat Ke-" << nomor++ << endl;
+            cout << "Judul Buku : " << r.judulBuku << endl;
+            cout << "Waktu Pinjam : " << r.waktupinjam << endl;
+            cout << "ID Buku : " << r.idbuku << endl;
+        }
+    }
+
+    if (nomor == 1) {
+        cout << "Tidak ada riwayat peminjaman ditemukan.\n";
+    }
+
+    file.close();
+}
+
+void kembalikan_buku(string username) {
+    ifstream file("riwayat_pinjam.txt");
+    if (!file.is_open()) {
+        cerr << "Gagal membuka file riwayat.\n";
+        return;
+    }
+
+    vector<riwayat_pinjam> riwayat_user;
+    string line;
+    while (getline(file, line)) {
+        riwayat_pinjam r = riwayattostring(line);
+        if (r.username == username) {
+            riwayat_user.push_back(r);
+        }
+    }
+    file.close();
+
+    if (riwayat_user.empty()) {
+        cout << "Anda tidak memiliki buku yang sedang dipinjam.\n";
+        return;
+    }
+
+    cout << "Buku yang sedang Anda pinjam:\n";
+    for (size_t i = 0; i < riwayat_user.size(); ++i) {
+        cout << i + 1 << ". " << riwayat_user[i].judulBuku
+             << " (ID: " << riwayat_user[i].idbuku
+             << ", Waktu Pinjam: " << riwayat_user[i].waktupinjam << ")\n";
+    }
+
+    cout << "Masukkan nomor buku yang ingin dikembalikan: ";
+    int pilihan;
+    cin >> pilihan;
+    cin.ignore();
+
+    if (pilihan < 1 || pilihan > (int)riwayat_user.size()) {
+        cout << "Pilihan tidak valid.\n";
+        return;
+    }
+
+    riwayat_pinjam dipilih = riwayat_user[pilihan - 1];
+
+    ifstream buku_in("data_buku.txt");
+    ofstream buku_out("dummy_buku.txt");
+    string baris;
+    while (getline(buku_in, baris)) {
+        Buku b = bukutostring(baris);
+        if (b.IDBuku == dipilih.idbuku) {
+            b.jumlahsalinan++; 
+        }
+        buku_out << stringtobuku(b) << "\n";
+    }
+    buku_in.close();
+    buku_out.close();
+    remove("data_buku.txt");
+    rename("dummy_buku.txt", "data_buku.txt");
+
+    ifstream riwayat_in("riwayat_pinjam.txt");
+    ofstream riwayat_out("dummy_riwayat.txt");
+
+    while (getline(riwayat_in, line)) {
+        riwayat_pinjam r = riwayattostring(line);
+        if (!(r.username == dipilih.username && r.idbuku == dipilih.idbuku && r.waktupinjam == dipilih.waktupinjam)) {
+            riwayat_out << stringtoriwayat(r) << "\n";
+        }
+    }
+    riwayat_in.close();
+    riwayat_out.close();
+    remove("riwayat_pinjam.txt");
+    rename("dummy_riwayat.txt", "riwayat_pinjam.txt");
+
+    cout << "Buku \"" << dipilih.judulBuku << "\" berhasil dikembalikan.\n";
+}

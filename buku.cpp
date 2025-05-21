@@ -31,5 +31,5 @@ struct riwayat_pinjam{
     string judulBuku;
     string username;
     string waktupinjam;
-    string idbuku;
+    int idbuku;
 };

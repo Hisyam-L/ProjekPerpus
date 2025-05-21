@@ -2,8 +2,8 @@
 
 
 
-void login_member(){
-    int pilihan = 4;
+void login_member(string inputuser){
+    int pilihan;
     string databuku = "data_buku.txt";
     do {
         cout << "\n=== MENU MEMBER ===" << endl;
@@ -11,7 +11,7 @@ void login_member(){
         cout << "[2] Pinjam Buku" << endl;
         cout << "[3] Cari Buku" << endl;
         cout << "[4] Kembalikan Buku" << endl;
-        cout << "[5] Bayar Denda Buku"<<endl;
+        cout << "[5] Riwayat Pinjam"<<endl;
         cout << "[6] Logout"<<endl;
 
         cin >> pilihan;
@@ -24,7 +24,7 @@ void login_member(){
             break;
                 
             case 2:
-                pinjam_buku();
+                pinjam_buku(inputuser);
             break;
 
             case 3: 
@@ -32,12 +32,16 @@ void login_member(){
             break;
 
             case 4: cout << "Logout berhasil!" << endl; 
+                kembalikan_buku(inputuser);
             break;
 
             case 5: cout << "Logout berhasil!" << endl; 
+                riwayat_pinjam_buku(inputuser);
             break;
 
-            case 6: cout << "Logout berhasil!" << endl; 
+
+            case 7: cout << "Logout berhasil!" << endl; 
+
             break;
 
 
@@ -45,6 +49,6 @@ void login_member(){
             default: cout << "Pilihan tidak valid!" << endl;
             break;
         }
-    } while (pilihan != 4);
+    } while (pilihan != 6);
 
 }

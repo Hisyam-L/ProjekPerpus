@@ -14,12 +14,11 @@ struct buku
     string penulis;
 };
 
-//Varibel buat Buku
 const int max_buku = 3000;
 int bukucount = 0;
 buku daftarBuku[max_buku];
 
-//Punya Akun
+
 const int max_user = 1000;
 int usercount = 0;
 akun acc[max_user];
@@ -162,7 +161,7 @@ void login(){
                     menuAdmin();
                 } else {
                     cout << "Selamat datang, " << input_user << "!\n" << endl;
-                    login_member();
+                    login_member(input_user);
                 }
                 
             } else{
