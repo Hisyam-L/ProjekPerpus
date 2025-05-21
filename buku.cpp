@@ -33,3 +33,28 @@ struct riwayat_pinjam{
     string waktupinjam;
     int idbuku;
 };
+
+int a;
+
+struct akun 
+{
+    string username;
+    string password;
+};
+
+struct buku
+{
+    string judul;
+    string penulis;
+};
+
+const int max_buku = 3000;
+int bukucount = 0;
+buku daftarBuku[max_buku];
+
+
+const int max_user = 1000;
+int usercount = 0;
+akun acc[max_user];
+
+bool found = 0;

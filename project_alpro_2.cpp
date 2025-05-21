@@ -1,30 +1,5 @@
 #include "login_member.cpp";
 
-int a;
-
-struct akun 
-{
-    string username;
-    string password;
-};
-
-struct buku
-{
-    string judul;
-    string penulis;
-};
-
-const int max_buku = 3000;
-int bukucount = 0;
-buku daftarBuku[max_buku];
-
-
-const int max_user = 1000;
-int usercount = 0;
-akun acc[max_user];
-
-bool found = 0;
-
 void tambahBukuRekursif(int jumlah) {
     if (jumlah == 0 || bukucount >= max_buku) {
         return;
@@ -175,28 +150,3 @@ void login(){
     }
 
 
-int main(){
-    akun acc[max_user];
-    bool ulang = 0;
-    int choice;
-        do{
-            system("cls");
-        cout<<"[1]daftar\n";
-        cout<<"[2]login\n";
-        cout<<"[3]keluar\n";
-        cout<<"masukkan angka : ";
-        cin>>choice;
-        cin.ignore();
-        switch(choice){
-            case 1 : daftar();
-            break;
-            case 2 : login();
-            if(found==0){
-                return main();
-            }else{
-                cout<<"masuk sistem"<<endl;
-            }
-            break; 
-        }
-    }while(!ulang);
-}
