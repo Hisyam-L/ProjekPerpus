@@ -26,6 +26,7 @@ int main(){
             
             case 3:
             cout<<"Terimakasih";
+            system("pause");
             bool ulang = 1;
             break; 
         }
