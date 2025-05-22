@@ -8,6 +8,8 @@
 #include <algorithm>
 using namespace std;
 
+const string namaFile = "data_buku.txt";
+
 struct Buku
 {
     
