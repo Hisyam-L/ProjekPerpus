@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <vector>
 #include <ctime>
+#include <algorithm>
 using namespace std;
 
 struct Buku

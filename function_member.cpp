@@ -151,6 +151,7 @@ void pinjam_buku(string user) {
                 time_t now = time(0);
                 char* dt_raw = ctime(&now);
                 string dt(dt_raw);
+
                 if (!dt.empty() && dt.back() == '\n') {
                     dt.pop_back();
                 }
@@ -204,13 +205,25 @@ void pinjam_buku(string user) {
     rename("dummy.txt", "data_buku.txt");
 }
 
+void bubbleSortRekursif(vector<Buku>& data, int n) {
 
-vector<Buku> caribukuberdasarkan(int pilihanberdasarkan, const string& katakunci) {
+    if (n == 1) return;
+
+    for (int i = 0; i < n - 1; i++) {
+        if (data[i].judulBuku > data[i + 1].judulBuku) {
+            swap(data[i], data[i + 1]);
+        }
+    }
+
+    bubbleSortRekursif(data, n - 1);
+}
+
+vector<Buku> caribukuberdasarkan(int pilihanberdasarkan, string katakunci) {
     ifstream file("data_buku.txt");
     vector<Buku> hasil;
 
     if (!file.is_open()) {
-        cerr << "Tidak dapat membuka file.\n";
+        cerr << "Gagal membuka file data_buku.txt\n";
         return hasil;
     }
 
@@ -218,27 +231,52 @@ vector<Buku> caribukuberdasarkan(int pilihanberdasarkan, const string& katakunci
     while (getline(file, line)) {
         Buku buku = bukutostring(line);
 
-        if ((pilihanberdasarkan == 1 && buku.judulBuku == katakunci) ||
-            (pilihanberdasarkan == 2 && buku.penulisBuku == katakunci) ||
-            (pilihanberdasarkan == 3 && buku.genreBuku == katakunci)) {
-            hasil.push_back(buku); 
+        
+        if (pilihanberdasarkan == 1 && buku.judulBuku == katakunci) {
+            hasil.push_back(buku);
         }
+        
+        else if (pilihanberdasarkan == 2 && buku.penulisBuku == katakunci) {
+            hasil.push_back(buku);
+        }
+        
+        else if (pilihanberdasarkan == 3 && buku.genreBuku == katakunci) {
+            hasil.push_back(buku);
+        }
+        
+        else if (pilihanberdasarkan == 4) {
+            try {
+                int tahun = stoi(katakunci); 
+                if (buku.tahunTerbit == tahun) {
+                    hasil.push_back(buku);
+                }
+            } catch (...) {
+                cout << "Input tahun tidak valid. Harus berupa angka.\n";
+                break; 
+            }
+        }
+    }
+
+    if (pilihanberdasarkan == 4 && !hasil.empty()) {
+        bubbleSortRekursif(hasil, hasil.size());
     }
 
     file.close();
     return hasil;
-};
+}
+
+
+
 
 
 void caribuku() {
     bool keluarcari = false;
-
     while (!keluarcari) {
         int pilihancari;
         string katakunci;
 
         cout << "Mencari berdasarkan apa ?\n";
-        cout << "1. Judul\n2. Penulis\n3. Genre\n4. Keluar\n";
+        cout << "1. Judul\n2. Penulis\n3. Genre\n4. Tahun Rilis\n5. Keluar\n";
         cout << "Pilihan: ";
         cin >> pilihancari;
         cin.ignore();
